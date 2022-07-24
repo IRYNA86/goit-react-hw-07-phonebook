@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addContact } from 'components/store/contactsSlice'; 
+// import { useDispatch } from 'react-redux';
+// import { addContact } from 'components/store/contactsSlice'; 
+import { useAddContactMutation } from 'components/store/contactsSlice';
 import shortid from 'shortid';
 import s from '../ContactForm/ContactForm.module.css';
 
@@ -11,7 +12,8 @@ function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+const [addContact] = useAddContactMutation()
 
   const handleChange = event => {
     switch (event.target.name) {
@@ -25,14 +27,14 @@ function ContactForm() {
         break;
     }
   };
+
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(
-      addContact({
-        id: shortid(),
-        name,
-        number,
-      }))
+    addContact({
+      id: shortid(),
+      name,
+      number,
+    });
     reset();
   };
 
